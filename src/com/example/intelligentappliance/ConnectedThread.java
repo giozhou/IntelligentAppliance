@@ -17,10 +17,10 @@ import android.util.Log;
 public class ConnectedThread extends Thread {
 	private BluetoothSocket socket;
 	private byte[] bytes;
-	private DetailActivity activity;
+	private Tip activity;
 
 	public ConnectedThread(BluetoothSocket socket, byte[] bytes,
-			DetailActivity activity) {
+			Tip activity) {
 		this.socket = socket;
 		this.bytes = bytes;
 		this.activity = activity;

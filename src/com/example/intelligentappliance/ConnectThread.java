@@ -14,10 +14,10 @@ public class ConnectThread extends Thread {
 	private BluetoothSocket cwjSocket;
 	private BluetoothDevice cwjDevice;
 	private ConnectedThread cdtWrite;
-	private DetailActivity activity;
+	private Tip activity;
 	private int position;
 
-	public ConnectThread(BluetoothDevice device, DetailActivity activityTemp,
+	public ConnectThread(BluetoothDevice device, Tip activityTemp,
 			int positionTemp) {
 		BluetoothSocket tmp = null;
 		cwjDevice = device;

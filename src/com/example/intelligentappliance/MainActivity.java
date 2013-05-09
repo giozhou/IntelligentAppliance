@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		Log.v("diyMessage", "apk started");
 
@@ -89,7 +90,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int pos,
 					long id) {
-				dialogTip = new Tip(MainActivity.this);
+				Bundle bundle = new Bundle();
+				bundle.putString("name", "aa");
+				bundle.putInt("position", pos);
+				dialogTip = new Tip(MainActivity.this, bundle);
 				dialogTip.show();
 			}
 		});
