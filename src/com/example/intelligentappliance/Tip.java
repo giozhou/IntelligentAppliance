@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -23,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class Tip extends Dialog {
+public class Tip extends Activity {
 	private LinearLayout layoutWork;
 	private LinearLayout layoutWait;
 	private TextView textViewShowMessage;
@@ -56,23 +58,17 @@ public class Tip extends Dialog {
 		}
 	};
 
-	public Tip(Context context, Bundle bundle) {
-		super(context);
-		deviceName = bundle.getString("name");
-		position = bundle.getInt("position");
-		// TODO Auto-generated constructor stub
-	}
-
-	public Tip(Context context, int theme) {
-		super(context, theme);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.tip);
+
+		Intent intent = getIntent();
+		Bundle b = intent.getExtras();
+		deviceName = b.getString("name");
+		position = b.getInt("position");
 
 		layoutWait = (LinearLayout) this.findViewById(R.id.layoutWait);
 		layoutWork = (LinearLayout) this.findViewById(R.id.layoutWork);
@@ -97,15 +93,17 @@ public class Tip extends Dialog {
 			}
 		});
 	}
-	
 
 	@Override
-	protected void onStop(){
+	protected void onStop() {
 		try {
-			btSocket.close();
+			if (btSocket != null) {
+				btSocket.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		super.onStop();
 	}
 }

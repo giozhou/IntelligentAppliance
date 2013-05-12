@@ -93,8 +93,11 @@ public class MainActivity extends Activity {
 				Bundle bundle = new Bundle();
 				bundle.putString("name", "aa");
 				bundle.putInt("position", pos);
-				dialogTip = new Tip(MainActivity.this, bundle);
-				dialogTip.show();
+
+				Intent intent = new Intent();
+				intent.putExtras(bundle);
+				intent.setClass(MainActivity.this, Tip.class);
+				MainActivity.this.startActivity(intent);
 			}
 		});
 
