@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -34,10 +35,12 @@ public class Tip extends Activity {
 	private int position;
 	public static BluetoothSocket btSocket;
 	private Switch switch1;
+	private Switch switch2;
 
 	public Handler myHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			int status = Integer.parseInt(msg.getData().getString("v"));
+			String content = msg.getData().getString("content");
 			switch (status) {
 			case 0:
 				textViewShowMessage.setText("连接失败!");
@@ -53,6 +56,14 @@ public class Tip extends Activity {
 			case 3:
 				layoutWait.setVisibility(View.INVISIBLE);
 				break;
+			case -1:
+				Log.v("diyMessage", content);
+				if(content == "01 00"){
+					
+				}
+				else if(content == ""){
+					
+				}
 			}
 			super.handleMessage(msg);
 		}
@@ -73,6 +84,7 @@ public class Tip extends Activity {
 		layoutWait = (LinearLayout) this.findViewById(R.id.layoutWait);
 		layoutWork = (LinearLayout) this.findViewById(R.id.layoutWork);
 		switch1 = (Switch) this.findViewById(R.id.switch1);
+		switch2 = (Switch) this.findViewById(R.id.switch2);
 		textViewShowMessage = (TextView) this.findViewById(R.id.textView2);
 		progressBar1 = (ProgressBar) this.findViewById(R.id.progressBar1);
 
@@ -80,6 +92,7 @@ public class Tip extends Activity {
 
 		new Thread(new ConnectThread(MainActivity.pairedDevices[position],
 				Tip.this, position)).start();
+		new Thread(new ConnectedInput(btSocket, Tip.this)).start();
 
 		switch1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView,
@@ -87,7 +100,19 @@ public class Tip extends Activity {
 				layoutWait.setVisibility(View.VISIBLE);
 				textViewShowMessage.setText("正在切换……");
 
-				String code = isChecked ? "a1#" : "a0#";
+				String code = "AA 02";
+				new Thread(new ConnectedThread(btSocket, code.getBytes(),
+						Tip.this)).start();
+			}
+		});
+		
+		switch2.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				layoutWait.setVisibility(View.VISIBLE);
+				textViewShowMessage.setText("正在切换……");
+
+				String code = "AA 02";
 				new Thread(new ConnectedThread(btSocket, code.getBytes(),
 						Tip.this)).start();
 			}
