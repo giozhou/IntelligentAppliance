@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_vertical" >
+
+<!-- Defining where should text be placed. You set you text color here-->
+
+<TextView
+    android:id="@+id/list_content"
+    android:layout_width="fill_parent"
+    android:layout_height="45dp"
+    android:layout_margin="0dp"
+    android:gravity="center|left"
+    android:paddingLeft="10dp"
+    android:text="sample"
+    android:textColor="#354B61"
+    android:textSize="15dp"
+    android:textStyle="bold" />
+
+</LinearLayout>

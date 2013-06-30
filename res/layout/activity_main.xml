@@ -2,27 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/main_list_text_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/title_background"
         android:gravity="center"
+        android:height="90dp"
         android:hint="@string/hello_world"
-        android:shadowColor="@android:color/darker_gray"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="20"
         android:text="您的家用设备列表"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#777777"
-        android:textSize="30dp" />
+        android:textColor="#fff"
+        android:textSize="24dp" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/android:list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:divider="@drawable/divider"
+        android:dividerHeight="1dp"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true"
+        android:listSelector="@drawable/list_selector" >
 
     </ListView>
 

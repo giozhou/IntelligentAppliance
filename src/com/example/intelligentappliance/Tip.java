@@ -16,6 +16,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -36,6 +37,7 @@ public class Tip extends Activity {
 	public static BluetoothSocket btSocket;
 	private Switch switch1;
 	private Switch switch2;
+	private LinearLayout tipLayout;
 
 	public Handler myHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -45,6 +47,9 @@ public class Tip extends Activity {
 			case 0:
 				textViewShowMessage.setText("¡¨Ω” ß∞‹!");
 				progressBar1.setVisibility(View.INVISIBLE);
+				LayoutParams params = tipLayout.getLayoutParams();
+				// Changes the height and width to the specified *pixels*
+				params.height = 140;
 				break;
 			case 1:
 				layoutWork.setVisibility(View.VISIBLE);
@@ -83,6 +88,7 @@ public class Tip extends Activity {
 
 		layoutWait = (LinearLayout) this.findViewById(R.id.layoutWait);
 		layoutWork = (LinearLayout) this.findViewById(R.id.layoutWork);
+		tipLayout = (LinearLayout)this.findViewById(R.id.tip_layout);
 		switch1 = (Switch) this.findViewById(R.id.switch1);
 		switch2 = (Switch) this.findViewById(R.id.switch2);
 		textViewShowMessage = (TextView) this.findViewById(R.id.textView2);
@@ -92,7 +98,6 @@ public class Tip extends Activity {
 
 		new Thread(new ConnectThread(MainActivity.pairedDevices[position],
 				Tip.this, position)).start();
-		new Thread(new ConnectedInput(btSocket, Tip.this)).start();
 
 		switch1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView,

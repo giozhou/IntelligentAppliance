@@ -3,7 +3,10 @@ package com.example.intelligentappliance;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import android.os.Bundle;
@@ -33,9 +36,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity  {
 
 	private BluetoothAdapter mBluetoothAdapter;
 	private ListView ls;
@@ -44,8 +48,8 @@ public class MainActivity extends Activity {
 	private ConnectThread ct = null;
 	private int times = 0;
 	private ProgressDialog dialog;
-	private ArrayList<String> ss = new ArrayList<String>();
-	private ArrayAdapter<String> adapter;
+	private List<Map<String, Object>> ss;
+	private SimpleAdapter adapter;
 	public Hashtable<Integer, ConnectedThread> hashConnectedThread = new Hashtable<Integer, ConnectedThread>();
 	private String Address;
 	private Dialog dialogTip;
@@ -57,9 +61,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Log.v("diyMessage", "apk started");
 
-		ls = (ListView) this.findViewById(R.id.listView1);
+		ls = (ListView) this.findViewById(android.R.id.list);
 		c = this.getApplicationContext();
-
+		ss =  new ArrayList<Map<String, Object>>();
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		mBluetoothAdapter.enable();
 		BluetoothDevice tmpBD[] = new BluetoothDevice[mBluetoothAdapter
@@ -71,42 +75,43 @@ public class MainActivity extends Activity {
 		{
 			int position = 0;
 			for (BluetoothDevice device : pairedDevices) {
-				Hashtable<String, String> rowData = new Hashtable<String, String>();
-				rowData.put("name", device.getName());
-				rowData.put("currentStatus", "close");
-				rowData.put("pic", "");
-				// ss.add(rowData);
-				ss.add(device.getName());
-				// mBluetoothAdapter.cancelDiscovery();
-				// new Thread(new ConnectThread(device, MainActivity.this,
-				// position)).start();
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("name", device.getName());
+				map.put("currentStatus", "close");
+				map.put("pic", "");
+				ss.add(map);
 				position++;
 			}
 		}
-		adapter = new ArrayAdapter<String>(c,
-				android.R.layout.simple_list_item_1, ss);
+		adapter = new SimpleAdapter(this, ss, R.layout.main_list,
+			            new String[]{"name"},
+			            new int[]{R.id.list_content});
 		Reset();
-		ls.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapter, View view, int pos,
-					long id) {
-				Bundle bundle = new Bundle();
-				bundle.putString("name", "aa");
-				bundle.putInt("position", pos);
 
-				Intent intent = new Intent();
-				intent.putExtras(bundle);
-				intent.setClass(MainActivity.this, Tip.class);
-				MainActivity.this.startActivity(intent);
-			}
-		});
-
-		// dialog = ProgressDialog
-		// .show(MainActivity.this, "", "正在连接蓝牙设备...", true);
 	}
+	
+	@Override
+    /**
+     * When the user selects an item in the list, do an action
+     * @param ListView l
+     * @param View v
+     * @param int position
+     * @param long id
+     */
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+		Bundle bundle = new Bundle();
+		bundle.putString("name", "aa");
+		bundle.putInt("position", position);
+
+		Intent intent = new Intent();
+		intent.putExtras(bundle);
+		intent.setClass(MainActivity.this, Tip.class);
+		MainActivity.this.startActivity(intent);
+    }
 
 	private void Reset() {
-		ls.setAdapter(adapter);
+		setListAdapter(adapter);
 	}
 
 	@Override

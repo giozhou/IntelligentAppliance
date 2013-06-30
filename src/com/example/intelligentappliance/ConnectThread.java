@@ -35,6 +35,7 @@ public class ConnectThread extends Thread {
 			try {
 				
 				cwjSocket.connect();
+				new Thread(new ConnectedInput(cwjSocket, activity)).start();
 				result.putString("v", String.valueOf(1));
 //				activity.CurrentAddress = cwjDevice.getAddress();
 				activity.btSocket = cwjSocket;
