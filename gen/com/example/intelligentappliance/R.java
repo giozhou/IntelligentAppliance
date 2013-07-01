@@ -27,8 +27,10 @@ public final class R {
         public static final int list_pressed_state=0x7f020003;
         public static final int list_selected_state=0x7f020004;
         public static final int list_selector=0x7f020005;
-        public static final int tip_background=0x7f020006;
-        public static final int title_background=0x7f020007;
+        public static final int main_background=0x7f020006;
+        public static final int main_bg1=0x7f020007;
+        public static final int tip_background=0x7f020008;
+        public static final int title_background=0x7f020009;
     }
     public static final class id {
         public static final int action_settings=0x7f080009;
