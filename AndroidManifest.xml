@@ -33,6 +33,15 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name="com.example.intelligentappliance.TipWork"
+            android:label="@string/hello_world"
+  android:theme="@android:style/Theme.Holo.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -43,17 +43,19 @@ public class Tip extends Activity {
 		public void handleMessage(Message msg) {
 			int status = Integer.parseInt(msg.getData().getString("v"));
 			String content = msg.getData().getString("content");
+			LayoutParams params = tipLayout.getLayoutParams();
 			switch (status) {
 			case 0:
 				textViewShowMessage.setText("¡¨Ω” ß∞‹!");
 				progressBar1.setVisibility(View.INVISIBLE);
-				LayoutParams params = tipLayout.getLayoutParams();
-				// Changes the height and width to the specified *pixels*
 				params.height = 140;
 				break;
 			case 1:
-				layoutWork.setVisibility(View.VISIBLE);
-				layoutWait.setVisibility(View.INVISIBLE);
+				Tip.this.finish();
+
+				Intent intent = new Intent();
+				intent.setClass(Tip.this, TipWork.class);
+				Tip.this.startActivity(intent);
 				break;
 			case 2:
 				layoutWait.setVisibility(View.INVISIBLE);
