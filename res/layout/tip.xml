@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tip_layout"
     android:layout_width="300dp"
-    android:layout_height="150dp"
+    android:layout_height="110dp"
     android:background="@drawable/tip_background"
     android:gravity="center|top"
     android:orientation="vertical" >
@@ -20,7 +20,7 @@
         android:id="@+id/layoutWait"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="vertical" >
 
@@ -30,35 +30,14 @@
             android:layout_height="wrap_content"
             android:text="正在连接设备……"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#99ACBF" />
-
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="#718EAB" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutWork"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="开关" />
-
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="开关" />
-    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/tip_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -23,7 +23,6 @@ public class ConnectThread extends Thread {
 		cwjDevice = device;
 		activity = activityTemp;
 		position = positionTemp;
-
 	}
 
 	public void run() {
@@ -33,12 +32,9 @@ public class ConnectThread extends Thread {
 			cwjSocket = cwjDevice.createRfcommSocketToServiceRecord(UUID
 					.fromString("00001101-0000-1000-8000-00805F9B34FB"));
 			try {
-				
 				cwjSocket.connect();
-				new Thread(new ConnectedInput(cwjSocket, activity)).start();
 				result.putString("v", String.valueOf(1));
-//				activity.CurrentAddress = cwjDevice.getAddress();
-				activity.btSocket = cwjSocket;
+				TipWork.btSocket = cwjSocket;
 			} catch (IOException connectException) {
 				Log.v("diyMessage", connectException.getMessage());
 				result.putString("v", String.valueOf(0));

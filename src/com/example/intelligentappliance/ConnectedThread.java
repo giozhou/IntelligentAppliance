@@ -17,10 +17,10 @@ import android.util.Log;
 public class ConnectedThread extends Thread {
 	private BluetoothSocket socket;
 	private byte[] bytes;
-	private Tip activity;
+	private TipWork activity;
 
 	public ConnectedThread(BluetoothSocket socket, byte[] bytes,
-			Tip activity) {
+			TipWork activity) {
 		this.socket = socket;
 		this.bytes = bytes;
 		this.activity = activity;
@@ -34,7 +34,7 @@ public class ConnectedThread extends Thread {
 			try {
 				outStream.write(bytes);
 				Log.v("diyMessage", "writed");
-				result.putString("v", String.valueOf(3));
+				result.putString("v", String.valueOf(1));
 			} catch (IOException e) {
 				result.putString("v", String.valueOf(2));
 				Log.v("diyMessage", "writting is error");

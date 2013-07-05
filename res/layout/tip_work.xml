@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tip_work_layout"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:background="@drawable/tip_background"
     android:gravity="center_horizontal"
@@ -17,6 +17,15 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tip_work_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="请选择操作"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#718EAB" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,9 +39,9 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/btn_close"
+            android:background="@drawable/btn_open"
             android:minHeight="35dp"
-            android:text="关  闭"
+            android:text="打 开"
             android:textSize="15sp" />
 
         <Button
