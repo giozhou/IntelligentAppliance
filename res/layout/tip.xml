@@ -16,28 +16,21 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutWait"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="正在连接设备……"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#718EAB" />
-
-    </LinearLayout>
+        android:layout_margin="10dp"
+        android:text="正在连接设备……"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#718EAB" />
 
     <ProgressBar
         android:id="@+id/tip_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="visible" />
 
 </LinearLayout>

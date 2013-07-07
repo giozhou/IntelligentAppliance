@@ -1,39 +1,28 @@
 package com.example.intelligentappliance;
 
-import java.io.IOException;
-
-import com.example.intelligentappliance.ConnectedThread;
-
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class Tip extends Activity {
-	private LinearLayout layoutWait;
 	private TextView textViewShowMessage;
-	private String deviceName;
 	private ProgressBar progressBar1;
 	private int position;
-	private LinearLayout tipLayout;
+	private ConnectDeviceTask connectDeviceTask;
 
 	public Handler myHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -44,8 +33,7 @@ public class Tip extends Activity {
 			catch(Exception e){
 				Log.v("diyMessage", e.getMessage());
 			}
-			String content = msg.getData().getString("content");
-			LayoutParams params = tipLayout.getLayoutParams();
+			connectDeviceTask.cancel(true);
 			switch (status) {
 			case 0:
 				textViewShowMessage.setText("Á¬½ÓÊ§°Ü!");
@@ -66,21 +54,68 @@ public class Tip extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		Log.v("diyMessage", "Create Start 1");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.tip);
 
 		Intent intent = getIntent();
 		Bundle b = intent.getExtras();
-		deviceName = b.getString("name");
 		position = b.getInt("position");
-
-		layoutWait = (LinearLayout) this.findViewById(R.id.layoutWait);
-		tipLayout = (LinearLayout)this.findViewById(R.id.tip_layout);
 		textViewShowMessage = (TextView) this.findViewById(R.id.textView2);
-		progressBar1 = (ProgressBar) this.findViewById(R.id.tip_progressBar);
-		progressBar1.setProgress(5);
+		this.progressBar1 = (ProgressBar)this.findViewById(R.id.tip_progressBar);
 		new Thread(new ConnectThread(MainActivity.pairedDevices[position], Tip.this, position)).start();
+		connectDeviceTask = new ConnectDeviceTask();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+			connectDeviceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+		}
+		else{
+			connectDeviceTask.execute("a");
+		}
+		drawProgressBar();
 	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
+
+	private void drawProgressBar() {
+		final float[] roundedCorners = new float[] { 5, 5, 5, 5, 5, 5, 5, 5 };
+		ShapeDrawable pgDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null,null));
+		String MyColor = "#1CB3FF";
+		pgDrawable.getPaint().setColor(Color.parseColor(MyColor));
+		ClipDrawable progress = new ClipDrawable(pgDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
+		this.progressBar1.setProgressDrawable(progress);
+	}
+
+	private class ConnectDeviceTask extends AsyncTask<Object, Integer, String> {
+
+		private int progressWidth = 0;
+
+		@Override
+		protected String doInBackground(Object... o) {
+			while(true){
+				publishProgress(1);
+				try{
+					Thread.sleep(500);
+				}
+				catch(Exception e){
+
+				}
+			}
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... progress) {
+			progressWidth = (this.progressWidth + 20) > 100 ? 0 : this.progressWidth + 20;
+			progressBar1.setProgress(progressWidth);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+
+		}
+	 }
 
 }
