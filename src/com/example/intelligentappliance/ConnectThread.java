@@ -11,36 +11,28 @@ import android.os.Message;
 import android.util.Log;
 
 public class ConnectThread extends Thread {
-	private BluetoothSocket cwjSocket;
 	private BluetoothDevice cwjDevice;
-	private ConnectedThread cdtWrite;
 	private Tip activity;
-	private int position;
 
 	public ConnectThread(BluetoothDevice device, Tip activityTemp,
 			int positionTemp) {
-		BluetoothSocket tmp = null;
 		cwjDevice = device;
 		activity = activityTemp;
-		position = positionTemp;
 	}
 
 	public void run() {
 		Message message = new Message();
 		Bundle result = new Bundle();
 		try {
-			cwjSocket = cwjDevice.createRfcommSocketToServiceRecord(UUID
+			TipWork.btSocket = cwjDevice.createRfcommSocketToServiceRecord(UUID
 					.fromString("00001101-0000-1000-8000-00805F9B34FB"));
 			try {
-				cwjSocket.connect();
+				TipWork.btSocket.connect();
 				result.putString("v", String.valueOf(1));
-				TipWork.btSocket = cwjSocket;
 			} catch (IOException connectException) {
-				Log.v("diyMessage", connectException.getMessage());
 				result.putString("v", String.valueOf(0));
 			}
 		} catch (IOException e) {
-			Log.v("diyMessage", "ss");
 			result.putString("v", String.valueOf(0));
 		}
 		message.setData(result);

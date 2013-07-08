@@ -44,7 +44,6 @@ public class Tip extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(Tip.this, TipWork.class);
 				Tip.this.startActivity(intent);
-				new Thread(new ConnectedInput()).start();
 				break;
 			}
 			super.handleMessage(msg);
@@ -54,7 +53,6 @@ public class Tip extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		Log.v("diyMessage", "Create Start 1");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.tip);
