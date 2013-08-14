@@ -4,5 +4,7 @@
     <string name="app_name">IntelligentAppliance</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="get_version_url">http://bangni.org/version</string>
+    <string name="get_apk_url">http://bangni.org/IntelligentAppliance.apk</string>
 
 </resources>
